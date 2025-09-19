@@ -15,9 +15,9 @@
 		{#each blok.products as blok}
 			<StoryblokComponent {blok} />
 		{/each}
-		<div class="mt-18 flex flex-col items-center justify-center gap-4">
+		<div class="flex flex-col gap-4 justify-center items-center mt-18">
 			<p class="text-2xl text-primary-text">Looking for more designs? Check out</p>
-			<div class="flex items-center gap-16">
+			<div class="flex gap-16 items-center">
 				<a
 					href="https://www.willowtip.com/bands/details/hath.aspx"
 					target="_blank"
@@ -42,7 +42,7 @@
 
 <style>
 	#store {
-		background: hsl(30deg 20% 96.08% / 0.4) url('store-bg.avif');
+		background: hsl(30deg 20% 96.08% / 0.4) url('/img/bg/store-bg.avif');
 		background-blend-mode: hard-light;
 		background-size: cover, cover;
 		background-position: center, center;

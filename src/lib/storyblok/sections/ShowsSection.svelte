@@ -15,7 +15,7 @@
 
 <style>
 	#store {
-		background: hsl(30deg 20% 96.08% / 0.4) url('shows-bg.avif');
+		background: hsl(30deg 20% 96.08% / 0.4) url('/img/bg/shows-bg.avif');
 		background-blend-mode: hard-light;
 		background-size: cover, cover;
 		background-position: center, center;

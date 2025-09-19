@@ -148,14 +148,14 @@
 
 <style>
 	#contact {
-		background: #f7f5f3 url('contact-section-bg.avif');
+		background: #f7f5f3 url('/img/bg/contact-section-bg.avif');
 		background-blend-mode: hard-light;
 		background-size: cover, cover;
 		background-position: center, center;
 		background-repeat: no-repeat, no-repeat;
 	}
 	.contact-bg {
-		background-image: url('contact-bg.avif');
+		background-image: url('/img/bg/contact-bg.avif');
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;

@@ -84,7 +84,7 @@
 
 <style>
 	#releases {
-		background: hsl(30deg 20% 96.08% / 0.4) url('/bg/releases-bg.avif');
+		background: hsl(30deg 20% 96.08% / 0.4) url('/img/bg/releases-bg.avif');
 		background-blend-mode: hard-light;
 		background-size: cover, cover;
 		background-position: center, center;
