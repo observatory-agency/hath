@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+html,
+body {
+	scroll-behavior: smooth;
+    font-family: 'Overpass', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.prose {
+	max-width: 100%;
+}
+
+@theme {
+	--font-header: 'Josefin Sans', sans-serif;
+	--color-primary-color: #3B413C;
+	--color-primary-text: #1D201F;
+	--color-secondary-text: #303633;
+    --color-primary-text-light: #F7F5F3;
+    --color-secondary-text-light: #E7E1DA;
+    --color-bg-dark: #1D201F;
+}
