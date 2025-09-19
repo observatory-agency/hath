@@ -3,24 +3,24 @@
 </script>
 
 <header class="right-0 left-0 z-50 {$hasBanner ? 'top-16' : 'top-0'}">
-	<nav aria-label="Global" class="container mx-auto flex items-center justify-between p-6 lg:px-8">
+	<nav aria-label="Global" class="container flex justify-between items-center p-6 mx-auto lg:px-8">
 		<div class="flex flex-1">
 			<div class="hidden lg:flex lg:gap-x-12">
 				<a
 					href="#releases"
-					class="font-header text-lg font-semibold text-white uppercase dark:text-white">Releases</a
+					class="text-lg font-semibold text-white uppercase font-header dark:text-white">Releases</a
 				>
 				<a
 					href="#store"
-					class="font-header text-lg font-semibold text-white uppercase dark:text-white">Store</a
+					class="text-lg font-semibold text-white uppercase font-header dark:text-white">Store</a
 				>
 				<a
 					href="#shows"
-					class="font-header text-lg font-semibold text-white uppercase dark:text-white">Shows</a
+					class="text-lg font-semibold text-white uppercase font-header dark:text-white">Shows</a
 				>
 				<a
 					href="#contact"
-					class="font-header text-lg font-semibold text-white uppercase dark:text-white">Contact</a
+					class="text-lg font-semibold text-white uppercase font-header dark:text-white">Contact</a
 				>
 			</div>
 			<div class="flex lg:hidden">
@@ -28,7 +28,7 @@
 					type="button"
 					command="show-modal"
 					commandfor="mobile-menu"
-					class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400 dark:hover:text-white"
+					class="inline-flex justify-center items-center p-2.5 -m-2.5 text-gray-700 rounded-md dark:text-gray-400 dark:hover:text-white"
 				>
 					<span class="sr-only">Open main menu</span>
 					<svg
@@ -54,11 +54,11 @@
 			<img src="/logo-gold.png" alt="" class="w-72" />
 		</a>
 		<div class="flex flex-1 justify-end">
-			<div class="flex items-center justify-end space-x-8">
-				<div class="hidden cursor-pointer items-center space-x-2 sm:flex">
+			<div class="flex justify-end items-center space-x-8">
+				<div class="hidden items-center space-x-2 cursor-pointer sm:flex">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-7 w-7 text-white"
+						class="w-7 h-7 text-white"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -70,14 +70,14 @@
 							d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
-					<button class="snipcart-customer-signin font-medium text-white uppercase">
+					<button class="font-medium text-white uppercase snipcart-customer-signin">
 						account
 					</button>
 				</div>
-				<div on:click={toggleMobileMenu} class="lg:hidden">
+				<div class="hidden">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="text-replicant-100 h-6 w-6 cursor-pointer"
+						class="w-6 h-6 cursor-pointer text-replicant-100"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -91,10 +91,10 @@
 					</svg>
 				</div>
 
-				<div class="snipcart-checkout flex cursor-pointer items-center space-x-2">
+				<div class="flex items-center space-x-2 cursor-pointer snipcart-checkout">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-7 w-7 text-white"
+						class="w-7 h-7 text-white"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -109,7 +109,7 @@
 					<button class="font-medium text-white">
 						<span class="hidden uppercase sm:inline-block">bag</span>
 						<span
-							class="text-tertiaryColor snipcart-items-count ml-2 text-sm font-medium group-hover:text-gray-800"
+							class="ml-2 text-sm font-medium text-tertiaryColor snipcart-items-count group-hover:text-gray-800"
 						/>
 					</button>
 				</div>
@@ -120,15 +120,15 @@
 		<div id="mobile-menu" class="hidden backdrop:bg-transparent">
 			<div class="fixed inset-0 focus:outline-none">
 				<div
-					class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 dark:bg-gray-900"
+					class="overflow-y-auto fixed inset-y-0 left-0 z-10 px-6 py-6 w-full bg-white dark:bg-gray-900"
 				>
-					<div class="flex items-center justify-between">
+					<div class="flex justify-between items-center">
 						<div class="flex flex-1">
 							<button
 								type="button"
 								command="close"
 								commandfor="mobile-menu"
-								class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400 dark:hover:text-white"
+								class="p-2.5 -m-2.5 text-gray-700 rounded-md dark:text-gray-400 dark:hover:text-white"
 							>
 								<span class="sr-only">Close menu</span>
 								<svg
@@ -144,21 +144,21 @@
 								</svg>
 							</button>
 						</div>
-						<a href="#" class="-m-1.5 p-1.5">
+						<a href="#" class="p-1.5 -m-1.5">
 							<span class="sr-only">Your Company</span>
 							<img
 								src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
 								alt=""
-								class="h-8 w-auto dark:hidden"
+								class="w-auto h-8 dark:hidden"
 							/>
 							<img
 								src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
 								alt=""
-								class="h-8 w-auto not-dark:hidden"
+								class="w-auto h-8 not-dark:hidden"
 							/>
 						</a>
 						<div class="flex flex-1 justify-end">
-							<a href="#" class="text-sm/6 font-semibold text-gray-900 dark:text-white"
+							<a href="#" class="font-semibold text-gray-900 text-sm/6 dark:text-white"
 								>Log in <span aria-hidden="true">&rarr;</span></a
 							>
 						</div>
@@ -166,17 +166,17 @@
 					<div class="mt-6 space-y-2">
 						<a
 							href="#"
-							class="-mx-3 block rounded-lg px-3 py-2 font-header text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+							class="block px-3 py-2 -mx-3 font-semibold text-gray-900 rounded-lg font-header text-base/7 hover:bg-gray-50"
 							>Product</a
 						>
 						<a
 							href="#"
-							class="-mx-3 block rounded-lg px-3 py-2 font-header text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+							class="block px-3 py-2 -mx-3 font-semibold text-gray-900 rounded-lg font-header text-base/7 hover:bg-gray-50"
 							>Features</a
 						>
 						<a
 							href="#"
-							class="-mx-3 block rounded-lg px-3 py-2 font-header text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+							class="block px-3 py-2 -mx-3 font-semibold text-gray-900 rounded-lg font-header text-base/7 hover:bg-gray-50"
 							>Company</a
 						>
 					</div>
