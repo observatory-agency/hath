@@ -5,10 +5,10 @@
 	export let blok;
 </script>
 
-<div {...storyblokEditable(blok)}>
+<div use:storyblokEditable={blok}>
 	<div class="flex flex-col gap-4">
-		<img src={blok.cover.filename} alt={blok.title || 'Release'} class="object-cover w-full" />
-		<div class="flex justify-between items-start mt-8 w-full">
+		<img src={blok.cover.filename} alt={blok.title || 'Release'} class="w-full object-cover" />
+		<div class="mt-8 flex w-full items-start justify-between">
 			<div class="flex flex-col gap-2">
 				<p class="text-3xl text-primary-text-light">{blok.title}</p>
 				<p class="text-2xl font-light text-secondary-text-light">{blok.description}</p>

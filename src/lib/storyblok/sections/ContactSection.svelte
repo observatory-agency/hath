@@ -5,25 +5,25 @@
 	let content = $state(renderRichText(blok.bio));
 </script>
 
-<section id="contact" {...storyblokEditable(blok)}>
-	<div class="container py-40 mx-auto">
+<section id="contact" use:storyblokEditable={blok}>
+	<div class="container mx-auto py-40">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
 		{/each}
 		<div class="mt-20">
 			<img src={blok.image.filename} alt="Contact" class="w-full" />
-			<div class="p-14 contact-bg">
+			<div class="contact-bg p-14">
 				<div class="flex justify-between">
-					<div class="flex flex-col gap-8 max-w-2xl">
+					<div class="flex max-w-2xl flex-col gap-8">
 						<div class="prose prose-p:text-lg prose-p:text-secondary-text-light">
 							{@html content}
 						</div>
-						<div class="flex gap-4 items-center">
+						<div class="flex items-center gap-4">
 							<a href={blok.fb_link.cached_url} aria-label="Facebook" class="block">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
-									class="w-auto h-8"
+									class="h-8 w-auto"
 									viewBox="0 0 24 24"
 									><path
 										fill="#E7E1DA"
@@ -35,7 +35,7 @@
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
-									class="w-auto h-8"
+									class="h-8 w-auto"
 									viewBox="0 0 24 24"
 									><g clip-path="url(#a)"
 										><path
@@ -50,7 +50,7 @@
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
-									class="w-auto h-8"
+									class="h-8 w-auto"
 									viewBox="0 0 24 24"
 									><g clip-path="url(#a)"
 										><path
@@ -65,7 +65,7 @@
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
-									class="w-auto h-8"
+									class="h-8 w-auto"
 									viewBox="0 0 24 24"
 									><g clip-path="url(#a)"
 										><path
@@ -80,7 +80,7 @@
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
-									class="w-auto h-8"
+									class="h-8 w-auto"
 									viewBox="0 0 24 24"
 									><g clip-path="url(#a)"
 										><path
@@ -95,7 +95,7 @@
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
-									class="w-auto h-12"
+									class="h-12 w-auto"
 									viewBox="0 0 48 32"
 									><path
 										fill="#E7E1DA"
@@ -119,7 +119,7 @@
 					</div>
 					<div>
 						<div>
-							<p class="text-2xl font-semibold uppercase font-header text-primary-text-light">
+							<p class="font-header text-2xl font-semibold text-primary-text-light uppercase">
 								Hath is:
 							</p>
 							<ul class="mt-4">
@@ -130,12 +130,12 @@
 							</ul>
 						</div>
 						<div class="mt-12">
-							<p class="text-2xl font-semibold uppercase font-header text-primary-text-light">
+							<p class="font-header text-2xl font-semibold text-primary-text-light uppercase">
 								Booking & Press
 							</p>
 							<a
 								href={blok.booking_email.cached_url}
-								class="text-xl underline text-secondary-text-light"
+								class="text-xl text-secondary-text-light underline"
 								>{blok.booking_email.cached_url}</a
 							>
 						</div>

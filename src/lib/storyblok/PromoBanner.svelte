@@ -7,7 +7,7 @@
 
 <div
 	class="promo-banner container mx-auto mt-32 rounded-xl"
-	{...storyblokEditable(blok)}
+	use:storyblokEditable={blok}
 	style="background-image: url({blok.image.filename});"
 >
 	<div class="px-6 py-24 sm:py-48 lg:px-8">

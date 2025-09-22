@@ -4,7 +4,7 @@
 	export let blok;
 </script>
 
-<section {...storyblokEditable(blok)} class="card-grid mx-auto mt-12 lg:mt-24">
+<section use:storyblokEditable={blok} class="card-grid mx-auto mt-12 lg:mt-24">
 	{#if blok.number_of_columns === '1'}
 		<div class="grid grid-cols-1 gap-10">
 			{#each blok.columns as blok}

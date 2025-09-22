@@ -25,7 +25,7 @@
 	}
 </script>
 
-<div {...storyblokEditable(blok)} class="flex flex-col">
+<div use:storyblokEditable={blok} class="flex flex-col">
 	{#each blok.shows as show, index}
 		<div class="accordion-item relative {index === 0 ? '' : 'border-t border-primary-text-light'}">
 			{#if expandedShowIndex === index}

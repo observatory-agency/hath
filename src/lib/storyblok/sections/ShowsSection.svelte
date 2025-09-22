@@ -4,7 +4,7 @@
 	let { blok } = $props();
 </script>
 
-<section id="store" class="py-40" {...storyblokEditable(blok)}>
+<section id="store" class="py-40" use:storyblokEditable={blok}>
 	<div class="container mx-auto">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />

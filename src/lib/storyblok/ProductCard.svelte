@@ -8,17 +8,17 @@
 	const productId = uuidv4();
 </script>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4" use:storyblokEditable={blok}>
 	<img src={blok.image.filename} alt={blok.title} />
 	<div class="flex flex-col gap-4">
-		<div class="flex justify-between items-center">
-			<p class="text-xl uppercase font-header text-primary-text">{blok.title}</p>
-			<p class="text-xl uppercase font-header text-primary-text">${blok.price}</p>
+		<div class="flex items-center justify-between">
+			<p class="font-header text-xl text-primary-text uppercase">{blok.title}</p>
+			<p class="font-header text-xl text-primary-text uppercase">${blok.price}</p>
 		</div>
-		<p class="text-lg text-center text-secondary-text">{blok.description}</p>
+		<p class="text-center text-lg text-secondary-text">{blok.description}</p>
 	</div>
 	<button
-		class="px-10 py-4 mx-auto text-2xl leading-none uppercase transition-colors duration-300 cursor-pointer snipcart-add-item w-fit rounded-xs bg-primary-color font-header text-primary-text-light hover:bg-bg-dark"
+		class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 py-4 font-header text-2xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
 		data-item-id={productId}
 		data-item-name={blok.title}
 		data-item-price={blok.price}

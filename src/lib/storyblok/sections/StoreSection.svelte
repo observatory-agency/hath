@@ -7,7 +7,7 @@
 	let { blok } = $props();
 </script>
 
-<section id="store" class="py-40" {...storyblokEditable(blok)}>
+<section id="store" class="py-40" use:storyblokEditable={blok}>
 	<div class="container mx-auto">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
@@ -15,9 +15,9 @@
 		{#each blok.products as blok}
 			<StoryblokComponent {blok} />
 		{/each}
-		<div class="flex flex-col gap-4 justify-center items-center mt-18">
+		<div class="mt-18 flex flex-col items-center justify-center gap-4">
 			<p class="text-2xl text-primary-text">Looking for more designs? Check out</p>
-			<div class="flex gap-16 items-center">
+			<div class="flex items-center gap-16">
 				<a
 					href="https://www.willowtip.com/bands/details/hath.aspx"
 					target="_blank"

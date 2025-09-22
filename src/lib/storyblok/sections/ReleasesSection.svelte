@@ -58,10 +58,10 @@
 	});
 </script>
 
-<section id="releases" class="py-24" bind:this={sectionElement} {...storyblokEditable(blok)}>
+<section id="releases" class="py-24" bind:this={sectionElement} use:storyblokEditable={blok}>
 	<div class="h-full">
-		<div class="flex flex-col gap-8 pt-16 pb-16 mx-auto max-w-3xl text-center">
-			<h1 class="text-6xl font-semibold uppercase text-balance text-primary-text-light">
+		<div class="mx-auto flex max-w-3xl flex-col gap-8 pt-16 pb-16 text-center">
+			<h1 class="text-6xl font-semibold text-balance text-primary-text-light uppercase">
 				{blok.header}
 			</h1>
 			<div class="prose text-balance prose-p:text-lg prose-p:text-secondary-text-light">
@@ -70,7 +70,7 @@
 		</div>
 
 		<!-- Horizontal Scroll Container -->
-		<div class="mb-24 horizontal-scroll-container" bind:this={horizontalContainer}>
+		<div class="horizontal-scroll-container mb-24" bind:this={horizontalContainer}>
 			<div class="releases-grid" bind:this={releasesGrid}>
 				{#each blok.release as releaseBlok}
 					<div class="release-item">
