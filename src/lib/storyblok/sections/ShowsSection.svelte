@@ -4,7 +4,7 @@
 	let { blok } = $props();
 </script>
 
-<section id="store" class="py-40" use:storyblokEditable={blok}>
+<section id="shows" class="py-40" use:storyblokEditable={blok}>
 	<div class="container mx-auto">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
@@ -14,7 +14,7 @@
 </section>
 
 <style>
-	#store {
+	#shows {
 		background: hsl(30deg 20% 96.08% / 0.4) url('/img/bg/shows-bg.avif');
 		background-blend-mode: hard-light;
 		background-size: cover, cover;

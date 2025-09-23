@@ -12,7 +12,24 @@
 	let { data } = $props();
 
 	let story = $state(data.story);
+
+	// Extract banner blocks to render them first
+	const bannerBlocks = $derived(
+		story?.content?.body?.filter((blok) => blok.component === 'banner') || []
+	);
+	const nonBannerBlocks = $derived(
+		story?.content?.body?.filter((blok) => blok.component !== 'banner') || []
+	);
 </script>
 
+<!-- Render banners before hero -->
+{#each bannerBlocks as blok}
+	<StoryblokComponent {blok} />
+{/each}
+
 <Hero />
-<StoryblokComponent blok={story.content} />
+
+<!-- Render non-banner content -->
+{#if story?.content && nonBannerBlocks.length > 0}
+	<StoryblokComponent blok={{ ...story.content, body: nonBannerBlocks }} />
+{/if}

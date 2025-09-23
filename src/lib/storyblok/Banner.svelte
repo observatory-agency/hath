@@ -14,12 +14,12 @@
 	});
 </script>
 
-<section use:storyblokEditable={blok} class="bg-bg-dark">
+<section use:storyblokEditable={blok} class="relative top-0 right-0 left-0 z-[60] bg-bg-dark">
 	<div class="container mx-auto flex items-center justify-center gap-6 py-3">
-		<p class="text-dark-text font-header text-xl">{blok.text}</p>
+		<p class="font-header text-xl text-primary-text-light">{blok.text}</p>
 		<a
 			href={blok.cta_link.cached_url}
-			class="border-dark-text text-dark-text rounded-md border px-4 pt-2.5 pb-1.5 leading-none"
+			class="rounded-md border border-primary-text-light px-4 pt-2.5 pb-1.5 leading-none text-primary-text-light"
 		>
 			{blok.cta_text}
 		</a>
