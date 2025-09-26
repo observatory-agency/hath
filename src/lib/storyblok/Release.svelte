@@ -8,7 +8,7 @@
 <div use:storyblokEditable={blok}>
 	<div class="flex flex-col gap-4">
 		<img src={blok.cover.filename} alt={blok.title || 'Release'} class="w-full object-cover" />
-		<div class="mt-8 flex w-full items-start justify-between">
+		<div class="mt-8 flex w-full flex-col items-start justify-between gap-6 lg:flex-row lg:gap-0">
 			<div class="flex flex-col gap-2">
 				<p class="text-3xl text-primary-text-light">{blok.title}</p>
 				<p class="text-2xl font-light text-secondary-text-light">{blok.description}</p>

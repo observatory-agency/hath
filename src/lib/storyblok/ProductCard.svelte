@@ -18,7 +18,7 @@
 		<p class="text-center text-lg text-secondary-text">{blok.description}</p>
 	</div>
 	<button
-		class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 py-4 font-header text-2xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
+		class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 pt-4 pb-3 font-header text-xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
 		data-item-id={productId}
 		data-item-name={blok.title}
 		data-item-price={blok.price}

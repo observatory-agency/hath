@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="promo-banner container mx-auto mt-32 rounded-xl"
+	class="promo-banner container mx-auto mt-32 lg:rounded-xl"
 	use:storyblokEditable={blok}
 	style="background-image: url({blok.image.filename});"
 >

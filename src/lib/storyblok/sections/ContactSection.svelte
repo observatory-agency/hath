@@ -6,19 +6,19 @@
 </script>
 
 <section id="contact" use:storyblokEditable={blok}>
-	<div class="container mx-auto py-40">
+	<div class="container mx-auto py-24 lg:py-40">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
 		{/each}
-		<div class="mt-20">
+		<div class="mt-12 lg:mt-20">
 			<img src={blok.image.filename} alt="Contact" class="w-full" />
-			<div class="contact-bg p-14">
-				<div class="flex justify-between">
-					<div class="flex max-w-2xl flex-col gap-8">
+			<div class="contact-bg px-4 py-8 lg:px-12 lg:py-14">
+				<div class="flex flex-col justify-between gap-8 lg:flex-row">
+					<div class="order-2 flex max-w-2xl flex-col gap-6 lg:order-1">
 						<div class="prose prose-p:text-lg prose-p:text-secondary-text-light">
 							{@html content}
 						</div>
-						<div class="flex items-center gap-8">
+						<div class="grid grid-cols-3 items-center gap-8 sm:flex">
 							<a href={blok.fb_link.cached_url} aria-label="Facebook" class="block">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -118,19 +118,21 @@
 							<SubscribeForm />
 						</div>
 					</div>
-					<div>
+					<div class="order-1 lg:order-2">
 						<div>
 							<p class="font-header text-2xl font-semibold text-primary-text-light uppercase">
 								Hath is:
 							</p>
 							<ul class="mt-4">
-								<li class="text-xl text-secondary-text-light">Skronk Lord - Drums</li>
-								<li class="mt-2 text-xl text-secondary-text-light">Fronk - Vocals / Guitar</li>
-								<li class="mt-2 text-xl text-secondary-text-light">Peanut Butter - Guitar</li>
-								<li class="mt-2 text-xl text-secondary-text-light">Greg - Bass</li>
+								<li class="text-xl text-secondary-text-light">AJ Vianna - Drums</li>
+								<li class="mt-2 text-xl text-secondary-text-light">
+									Frank Albanese - Guitars / Vocals
+								</li>
+								<li class="mt-2 text-xl text-secondary-text-light">Peter Brown - Guitars</li>
+								<li class="mt-2 text-xl text-secondary-text-light">Greg Nottis - Bass / Vocals</li>
 							</ul>
 						</div>
-						<div class="mt-12">
+						<div class="mt-8 lg:mt-12">
 							<p class="font-header text-2xl font-semibold text-primary-text-light uppercase">
 								Booking & Press
 							</p>

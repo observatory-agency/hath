@@ -2,7 +2,7 @@
 	import ButtonGhost from '$lib/components/ui/ButtonGhost.svelte';
 </script>
 
-<form action="" class="mt-8 flex w-full max-w-md gap-x-4">
+<form action="" class="mt-8 flex w-full max-w-md flex-col gap-4 gap-x-4 sm:flex-row">
 	<label for="email-address" class="sr-only">Email address</label>
 	<input
 		id="email-address"

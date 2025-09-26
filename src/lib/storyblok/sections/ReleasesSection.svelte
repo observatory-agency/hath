@@ -9,11 +9,20 @@
 	let sectionElement;
 	let horizontalContainer;
 	let releasesGrid;
+	let isDesktop = $state(false);
 
 	onMount(() => {
 		gsap.registerPlugin(ScrollTrigger);
 
+		// Check if we're on desktop (1024px and above)
+		const checkIsDesktop = () => {
+			isDesktop = window.innerWidth >= 1024;
+		};
+
 		const createScrollAnimation = () => {
+			// Only create horizontal scroll animation on desktop
+			if (!isDesktop) return;
+
 			// Get the width of the releases grid
 			const gridWidth = releasesGrid.scrollWidth;
 			const containerWidth = horizontalContainer.offsetWidth;
@@ -41,12 +50,24 @@
 			}
 		};
 
+		// Initial check
+		checkIsDesktop();
+
 		// Wait for layout to settle before creating animation
 		setTimeout(createScrollAnimation, 100);
 
-		// Refresh ScrollTrigger on window resize
+		// Refresh ScrollTrigger on window resize and recheck desktop
 		const handleResize = () => {
-			ScrollTrigger.refresh();
+			const wasDesktop = isDesktop;
+			checkIsDesktop();
+
+			// If we switched between desktop/mobile, kill all triggers and recreate
+			if (wasDesktop !== isDesktop) {
+				ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+				setTimeout(createScrollAnimation, 100);
+			} else {
+				ScrollTrigger.refresh();
+			}
 		};
 
 		window.addEventListener('resize', handleResize);
@@ -58,10 +79,15 @@
 	});
 </script>
 
-<section id="releases" class="py-24" bind:this={sectionElement} use:storyblokEditable={blok}>
+<section
+	id="releases"
+	class="py-16 lg:py-24"
+	bind:this={sectionElement}
+	use:storyblokEditable={blok}
+>
 	<div class="h-full">
-		<div class="mx-auto flex max-w-3xl flex-col gap-8 pt-16 pb-16 text-center">
-			<h1 class="text-6xl font-semibold text-balance text-primary-text-light uppercase">
+		<div class="mx-auto flex max-w-3xl flex-col gap-8 px-4 text-center lg:px-0">
+			<h1 class="text-3xl font-semibold text-balance text-primary-text-light uppercase lg:text-6xl">
 				{blok.header}
 			</h1>
 			<div class="prose text-balance prose-p:text-lg prose-p:text-secondary-text-light">
@@ -69,11 +95,16 @@
 			</div>
 		</div>
 
-		<!-- Horizontal Scroll Container -->
-		<div class="horizontal-scroll-container mb-24" bind:this={horizontalContainer}>
-			<div class="releases-grid" bind:this={releasesGrid}>
+		<!-- Releases Container - responsive layout -->
+		<div class="releases-container my-24" bind:this={horizontalContainer}>
+			<div
+				class="releases-grid"
+				class:desktop-horizontal={isDesktop}
+				class:mobile-grid={!isDesktop}
+				bind:this={releasesGrid}
+			>
 				{#each blok.release as releaseBlok}
-					<div class="release-item">
+					<div class="release-item" class:desktop-item={isDesktop} class:mobile-item={!isDesktop}>
 						<StoryblokComponent blok={releaseBlok} />
 					</div>
 				{/each}
@@ -91,15 +122,19 @@
 		background-repeat: no-repeat, no-repeat;
 	}
 
-	.horizontal-scroll-container {
-		height: 75vh;
+	.releases-container {
 		width: 100%;
+	}
+
+	/* Desktop horizontal scroll layout */
+	.releases-container:has(.desktop-horizontal) {
+		height: 75vh;
 		overflow: hidden;
 		display: flex;
 		align-items: center;
 	}
 
-	.releases-grid {
+	.releases-grid.desktop-horizontal {
 		display: flex;
 		gap: 8rem;
 		height: 100%;
@@ -107,7 +142,7 @@
 		will-change: transform;
 	}
 
-	.release-item {
+	.release-item.desktop-item {
 		flex: 0 0 800px;
 		height: 100%;
 		display: flex;
@@ -116,24 +151,36 @@
 		padding: 1rem;
 	}
 
-	/* Responsive adjustments */
-	@media (max-width: 768px) {
-		.release-item {
-			flex: 0 0 320px;
-		}
-
-		.horizontal-scroll-container {
-			height: 50vh;
-		}
+	/* Mobile/tablet grid layout */
+	.releases-container:has(.mobile-grid) {
+		max-width: 1200px;
+		margin: 3rem auto 0;
+		padding: 0 1rem;
 	}
 
-	@media (max-width: 480px) {
-		.release-item {
-			flex: 0 0 280px;
+	.releases-grid.mobile-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 3rem;
+		align-items: start;
+	}
+
+	.release-item.mobile-item {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		padding: 0;
+	}
+
+	/* Mobile responsive adjustments */
+	@media (max-width: 640px) {
+		.releases-grid.mobile-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
 		}
 
-		.horizontal-scroll-container {
-			height: 45vh;
+		.releases-container:has(.mobile-grid) {
+			padding: 0 1rem;
 		}
 	}
 </style>

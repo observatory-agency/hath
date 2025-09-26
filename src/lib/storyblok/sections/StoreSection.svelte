@@ -7,17 +7,19 @@
 	let { blok } = $props();
 </script>
 
-<section id="store" class="py-40" use:storyblokEditable={blok}>
-	<div class="container mx-auto">
+<section id="store" class="py-24 lg:py-40" use:storyblokEditable={blok}>
+	<div class="container mx-auto px-4 lg:px-0">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
 		{/each}
 		{#each blok.products as blok}
 			<StoryblokComponent {blok} />
 		{/each}
-		<div class="mt-18 flex flex-col items-center justify-center gap-4">
-			<p class="text-2xl text-primary-text">Looking for more designs? Check out</p>
-			<div class="flex items-center gap-16">
+		<div class="mt-16 flex flex-col items-center justify-center gap-4 lg:mt-32">
+			<p class="text-center text-2xl text-balance text-primary-text sm:text-left">
+				Looking for more designs? Check out
+			</p>
+			<div class="mt-6 flex flex-col items-center gap-16 px-12 lg:flex-row lg:px-0">
 				<a
 					href="https://www.willowtip.com/bands/details/hath.aspx"
 					target="_blank"

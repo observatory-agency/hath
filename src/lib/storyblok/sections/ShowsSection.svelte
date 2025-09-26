@@ -4,8 +4,8 @@
 	let { blok } = $props();
 </script>
 
-<section id="shows" class="py-40" use:storyblokEditable={blok}>
-	<div class="container mx-auto">
+<section id="shows" use:storyblokEditable={blok}>
+	<div class="container mx-auto px-4 py-24 lg:px-0 lg:py-40">
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
 		{/each}

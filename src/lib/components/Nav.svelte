@@ -4,16 +4,38 @@
 
 	let scrollY = 0;
 	let isScrolled = false;
+	let isMobileMenuOpen = false;
 
 	onMount(() => {
 		const updateScroll = () => {
 			scrollY = window.scrollY;
-			isScrolled = scrollY > 100; // Trigger at 100px scroll
+			// Use 50px threshold for mobile, 100px for desktop
+			const threshold = window.innerWidth < 1024 ? 60 : 100;
+			isScrolled = scrollY > threshold;
 		};
 
 		window.addEventListener('scroll', updateScroll);
-		return () => window.removeEventListener('scroll', updateScroll);
+		window.addEventListener('resize', updateScroll); // Update on resize
+		return () => {
+			window.removeEventListener('scroll', updateScroll);
+			window.removeEventListener('resize', updateScroll);
+		};
 	});
+
+	function toggleMobileMenu() {
+		isMobileMenuOpen = !isMobileMenuOpen;
+		// Prevent body scroll when menu is open
+		if (isMobileMenuOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = '';
+		}
+	}
+
+	function closeMobileMenu() {
+		isMobileMenuOpen = false;
+		document.body.style.overflow = '';
+	}
 </script>
 
 <header
@@ -60,8 +82,7 @@
 			<div class="flex lg:hidden">
 				<button
 					type="button"
-					command="show-modal"
-					commandfor="mobile-menu"
+					on:click={toggleMobileMenu}
 					class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 transition-colors duration-300"
 					class:text-white={!isScrolled}
 					class:text-gray-700={isScrolled}
@@ -96,8 +117,10 @@
 				src={!isScrolled ? '/logo-gold.png' : '/logo-black.png'}
 				alt=""
 				class="transition-all duration-300"
-				class:w-72={!isScrolled}
-				class:w-24={isScrolled}
+				class:w-40={!isScrolled}
+				class:w-20={isScrolled}
+				class:lg:w-72={!isScrolled}
+				class:lg:w-24={isScrolled}
 			/>
 		</a>
 		<div class="flex flex-1 justify-end">
@@ -175,69 +198,135 @@
 			</div>
 		</div>
 	</nav>
-	<div>
-		<div id="mobile-menu" class="hidden backdrop:bg-transparent">
-			<div class="fixed inset-0 focus:outline-none">
-				<div
-					class="fixed inset-y-0 left-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 dark:bg-gray-900"
-				>
-					<div class="flex items-center justify-between">
-						<div class="flex flex-1">
-							<button
-								type="button"
-								command="close"
-								commandfor="mobile-menu"
-								class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400 dark:hover:text-white"
+	<!-- Mobile menu overlay -->
+	<div
+		class="fixed inset-0 z-50 transition-all duration-300 lg:hidden"
+		class:opacity-100={isMobileMenuOpen}
+		class:opacity-0={!isMobileMenuOpen}
+		class:pointer-events-auto={isMobileMenuOpen}
+		class:pointer-events-none={!isMobileMenuOpen}
+	>
+		<!-- Backdrop -->
+		<div
+			class="fixed inset-0 bg-black transition-opacity duration-300"
+			class:bg-opacity-50={isMobileMenuOpen}
+			class:bg-opacity-0={!isMobileMenuOpen}
+			on:click={closeMobileMenu}
+			on:keydown={(e) => e.key === 'Escape' && closeMobileMenu()}
+			role="button"
+			tabindex="0"
+		></div>
+
+		<!-- Mobile menu panel -->
+		<div
+			class="fixed inset-y-0 left-0 z-50 w-80 max-w-sm transform bg-white shadow-xl transition-transform duration-300 ease-in-out"
+			class:translate-x-0={isMobileMenuOpen}
+			class:-translate-x-full={!isMobileMenuOpen}
+		>
+			<div class="flex h-full flex-col overflow-y-auto">
+				<!-- Header -->
+				<div class="flex items-center justify-between px-6 py-6">
+					<a href="/" on:click={closeMobileMenu}>
+						<span class="sr-only">Hath</span>
+						<img src="/logo-black.png" alt="Hath" class="h-12 w-auto" />
+					</a>
+					<button
+						type="button"
+						on:click={closeMobileMenu}
+						class="-m-2.5 rounded-md p-2.5 text-gray-700 hover:text-gray-900"
+					>
+						<span class="sr-only">Close menu</span>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="1.5"
+							aria-hidden="true"
+							class="h-6 w-6"
+						>
+							<path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</button>
+				</div>
+
+				<!-- Navigation Links -->
+				<div class="flex-1 px-6 pb-6">
+					<nav class="space-y-2">
+						<a
+							href="#releases"
+							on:click={closeMobileMenu}
+							class="block rounded-lg px-3 py-3 font-header text-lg font-semibold text-gray-900 uppercase transition-colors duration-200 hover:bg-gray-50"
+						>
+							Releases
+						</a>
+						<a
+							href="#store"
+							on:click={closeMobileMenu}
+							class="block rounded-lg px-3 py-3 font-header text-lg font-semibold text-gray-900 uppercase transition-colors duration-200 hover:bg-gray-50"
+						>
+							Store
+						</a>
+						<a
+							href="#shows"
+							on:click={closeMobileMenu}
+							class="block rounded-lg px-3 py-3 font-header text-lg font-semibold text-gray-900 uppercase transition-colors duration-200 hover:bg-gray-50"
+						>
+							Shows
+						</a>
+						<a
+							href="#contact"
+							on:click={closeMobileMenu}
+							class="block rounded-lg px-3 py-3 font-header text-lg font-semibold text-gray-900 uppercase transition-colors duration-200 hover:bg-gray-50"
+						>
+							Contact
+						</a>
+					</nav>
+
+					<!-- Account and Cart Actions -->
+					<div class="mt-8 space-y-4 border-t border-gray-200 pt-6">
+						<div class="flex items-center space-x-3">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6 text-gray-700"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
 							>
-								<span class="sr-only">Close menu</span>
-								<svg
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="1.5"
-									data-slot="icon"
-									aria-hidden="true"
-									class="size-6"
-								>
-									<path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-								</svg>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+								/>
+							</svg>
+							<button
+								class="snipcart-customer-signin font-medium text-gray-900 uppercase transition-colors duration-200 hover:text-gray-700"
+							>
+								Account
 							</button>
 						</div>
-						<a href="#" class="-m-1.5 p-1.5">
-							<span class="sr-only">Your Company</span>
-							<img
-								src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-								alt=""
-								class="h-8 w-auto dark:hidden"
-							/>
-							<img
-								src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-								alt=""
-								class="h-8 w-auto not-dark:hidden"
-							/>
-						</a>
-						<div class="flex flex-1 justify-end">
-							<a href="#" class="text-sm/6 font-semibold text-gray-900 dark:text-white"
-								>Log in <span aria-hidden="true">&rarr;</span></a
+						<div class="snipcart-checkout flex items-center space-x-3">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6 text-gray-700"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
 							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+								/>
+							</svg>
+							<button
+								class="font-medium text-gray-900 transition-colors duration-200 hover:text-gray-700"
+							>
+								<span class="uppercase">Bag</span>
+								<span class="snipcart-items-count ml-2 text-sm font-medium"></span>
+							</button>
 						</div>
-					</div>
-					<div class="mt-6 space-y-2">
-						<a
-							href="#"
-							class="-mx-3 block rounded-lg px-3 py-2 font-header text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-							>Product</a
-						>
-						<a
-							href="#"
-							class="-mx-3 block rounded-lg px-3 py-2 font-header text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-							>Features</a
-						>
-						<a
-							href="#"
-							class="-mx-3 block rounded-lg px-3 py-2 font-header text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-							>Company</a
-						>
 					</div>
 				</div>
 			</div>
