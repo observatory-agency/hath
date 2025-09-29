@@ -1,6 +1,6 @@
 <script>
 	import { storyblokEditable } from '@storyblok/svelte';
-	import { hasBanner } from '$lib/stores/banner.js';
+	import { hasBanner, isMobileMenuOpen } from '$lib/stores/banner.js';
 	import { onMount, onDestroy } from 'svelte';
 
 	export let blok;
@@ -16,7 +16,9 @@
 
 <section
 	use:storyblokEditable={blok}
-	class="relative top-0 right-0 left-0 z-[60] bg-bg-dark px-4 lg:px-0"
+	class="relative top-0 right-0 left-0 z-[15] bg-bg-dark px-4 transition-opacity duration-300 lg:px-0"
+	class:opacity-0={$isMobileMenuOpen}
+	class:pointer-events-none={$isMobileMenuOpen}
 >
 	<div
 		class="container mx-auto flex flex-col items-start justify-center gap-2 py-3 sm:flex-row sm:items-center sm:gap-6"

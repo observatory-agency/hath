@@ -86,7 +86,7 @@
 <!-- Lightbox overlay -->
 {#if showLightbox}
 	<div
-		class="bg-opacity-75 fixed inset-0 z-50 flex items-center justify-center bg-[#0F1010]/95 p-4"
+		class="bg-opacity-75 fixed inset-0 z-20 flex items-center justify-center bg-[#0F1010]/95 p-4"
 		on:click={handleBackgroundClick}
 		on:keydown={handleKeydown}
 		role="dialog"

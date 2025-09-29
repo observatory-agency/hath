@@ -1,10 +1,9 @@
 <script>
-	import { hasBanner } from '$lib/stores/banner.js';
+	import { hasBanner, isMobileMenuOpen } from '$lib/stores/banner.js';
 	import { onMount } from 'svelte';
 
 	let scrollY = 0;
 	let isScrolled = false;
-	let isMobileMenuOpen = false;
 
 	onMount(() => {
 		const updateScroll = () => {
@@ -23,30 +22,33 @@
 	});
 
 	function toggleMobileMenu() {
-		isMobileMenuOpen = !isMobileMenuOpen;
+		isMobileMenuOpen.update((value) => !value);
 		// Prevent body scroll when menu is open
-		if (isMobileMenuOpen) {
-			document.body.style.overflow = 'hidden';
-		} else {
-			document.body.style.overflow = '';
-		}
+		const unsubscribe = isMobileMenuOpen.subscribe((value) => {
+			if (value) {
+				document.body.style.overflow = 'hidden';
+			} else {
+				document.body.style.overflow = '';
+			}
+		});
+		unsubscribe();
 	}
 
 	function closeMobileMenu() {
-		isMobileMenuOpen = false;
+		isMobileMenuOpen.set(false);
 		document.body.style.overflow = '';
 	}
 </script>
 
 <header
-	class="fixed right-0 left-0 z-50 transition-all duration-300"
+	class="fixed right-0 left-0 z-10 transition-all duration-300"
 	class:pt-[96px]={$hasBanner && !isScrolled}
 	class:bg-white={isScrolled}
 	class:shadow-lg={isScrolled}
 >
 	<nav
 		aria-label="Global"
-		class="container mx-auto flex items-center justify-between transition-all duration-300"
+		class="max-w-[1536px]mx-auto flex items-center justify-between transition-all duration-300"
 		class:p-6={!isScrolled}
 		class:lg:px-8={!isScrolled}
 		class:p-8={isScrolled}
@@ -83,7 +85,7 @@
 				<button
 					type="button"
 					on:click={toggleMobileMenu}
-					class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 transition-colors duration-300"
+					class="-m-2.5 inline-flex cursor-pointer items-center justify-center rounded-md p-2.5 transition-colors duration-300"
 					class:text-white={!isScrolled}
 					class:text-gray-700={isScrolled}
 				>
@@ -125,7 +127,10 @@
 		</a>
 		<div class="flex flex-1 justify-end">
 			<div class="flex items-center justify-end space-x-8">
-				<div class="hidden cursor-pointer items-center space-x-2 sm:flex">
+				<button
+					type="button"
+					class="snipcart-customer-signin hidden cursor-pointer items-center space-x-2 sm:flex"
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-7 w-7 transition-colors duration-300"
@@ -142,14 +147,14 @@
 							d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 						/>
 					</svg>
-					<button
-						class="snipcart-customer-signin font-medium uppercase transition-colors duration-300"
+					<span
+						class="font-medium uppercase transition-colors duration-300"
 						class:text-white={!isScrolled}
 						class:text-gray-900={isScrolled}
 					>
 						account
-					</button>
-				</div>
+					</span>
+				</button>
 				<div class="hidden">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -185,7 +190,7 @@
 						/>
 					</svg>
 					<button
-						class="font-medium transition-colors duration-300"
+						class="cursor-pointer font-medium transition-colors duration-300"
 						class:text-white={!isScrolled}
 						class:text-gray-900={isScrolled}
 					>
@@ -200,17 +205,17 @@
 	</nav>
 	<!-- Mobile menu overlay -->
 	<div
-		class="fixed inset-0 z-50 transition-all duration-300 lg:hidden"
-		class:opacity-100={isMobileMenuOpen}
-		class:opacity-0={!isMobileMenuOpen}
-		class:pointer-events-auto={isMobileMenuOpen}
-		class:pointer-events-none={!isMobileMenuOpen}
+		class="fixed inset-0 z-20 transition-all duration-300 lg:hidden"
+		class:opacity-100={$isMobileMenuOpen}
+		class:opacity-0={!$isMobileMenuOpen}
+		class:pointer-events-auto={$isMobileMenuOpen}
+		class:pointer-events-none={!$isMobileMenuOpen}
 	>
 		<!-- Backdrop -->
 		<div
 			class="fixed inset-0 bg-black transition-opacity duration-300"
-			class:bg-opacity-50={isMobileMenuOpen}
-			class:bg-opacity-0={!isMobileMenuOpen}
+			class:bg-opacity-50={$isMobileMenuOpen}
+			class:bg-opacity-0={!$isMobileMenuOpen}
 			on:click={closeMobileMenu}
 			on:keydown={(e) => e.key === 'Escape' && closeMobileMenu()}
 			role="button"
@@ -219,9 +224,9 @@
 
 		<!-- Mobile menu panel -->
 		<div
-			class="fixed inset-y-0 left-0 z-50 w-80 max-w-sm transform bg-white shadow-xl transition-transform duration-300 ease-in-out"
-			class:translate-x-0={isMobileMenuOpen}
-			class:-translate-x-full={!isMobileMenuOpen}
+			class="fixed inset-y-0 left-0 z-30 w-80 max-w-sm transform bg-white shadow-xl transition-transform duration-300 ease-in-out"
+			class:translate-x-0={$isMobileMenuOpen}
+			class:-translate-x-full={!$isMobileMenuOpen}
 		>
 			<div class="flex h-full flex-col overflow-y-auto">
 				<!-- Header -->
@@ -284,7 +289,10 @@
 
 					<!-- Account and Cart Actions -->
 					<div class="mt-8 space-y-4 border-t border-gray-200 pt-6">
-						<div class="flex items-center space-x-3">
+						<button
+							type="button"
+							class="snipcart-customer-signin flex w-full cursor-pointer items-center space-x-3 rounded-lg px-3 py-3 transition-colors duration-200 hover:bg-gray-50"
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								class="h-6 w-6 text-gray-700"
@@ -299,12 +307,10 @@
 									d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 								/>
 							</svg>
-							<button
-								class="snipcart-customer-signin font-medium text-gray-900 uppercase transition-colors duration-200 hover:text-gray-700"
-							>
+							<span class="font-medium text-gray-900 uppercase transition-colors duration-200">
 								Account
-							</button>
-						</div>
+							</span>
+						</button>
 						<div class="snipcart-checkout flex items-center space-x-3">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

@@ -30,3 +30,13 @@ h6 {
     --color-secondary-text-light: #E7E1DA;
     --color-bg-dark: #1D201F;
 }
+
+/* Ensure Snipcart elements always appear on top */
+#snipcart,
+#snipcart-overlay,
+.snipcart,
+.snipcart-modal,
+.snipcart-cart-header,
+.snipcart-modal-backdrop {
+	z-index: 999999 !important;
+}

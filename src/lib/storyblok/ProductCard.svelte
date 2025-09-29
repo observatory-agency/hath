@@ -8,12 +8,20 @@
 	const productId = uuidv4();
 </script>
 
-<div class="flex flex-col gap-4" use:storyblokEditable={blok}>
-	<img src={blok.image.filename} alt={blok.title} />
-	<div class="flex flex-col gap-4">
-		<div class="flex items-center justify-between">
-			<p class="font-header text-xl text-primary-text uppercase">{blok.title}</p>
-			<p class="font-header text-xl text-primary-text uppercase">${blok.price}</p>
+<div class="flex h-full flex-col gap-4" use:storyblokEditable={blok}>
+	<div class="aspect-square w-full overflow-hidden">
+		<img
+			src={blok.image.filename}
+			alt={blok.title}
+			class="h-full w-full object-cover object-center"
+		/>
+	</div>
+	<div class="flex flex-grow flex-col gap-4">
+		<div class="flex flex-col items-center justify-between gap-4">
+			<p class="text-center font-header text-2xl font-medium text-primary-text uppercase">
+				${blok.price}
+			</p>
+			<p class="text-center font-header text-xl text-primary-text uppercase">{blok.title}</p>
 		</div>
 		<p class="text-center text-lg text-secondary-text">{blok.description}</p>
 	</div>
