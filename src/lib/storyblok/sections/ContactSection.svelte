@@ -124,7 +124,7 @@
 								Hath is:
 							</p>
 							<ul class="mt-4">
-								<li class="text-xl text-secondary-text-light">AJ Vianna - Drums</li>
+								<li class="text-xl text-secondary-text-light">AJ Viana - Drums</li>
 								<li class="mt-2 text-xl text-secondary-text-light">
 									Frank Albanese - Guitars / Vocals
 								</li>

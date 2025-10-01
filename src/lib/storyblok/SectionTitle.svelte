@@ -9,7 +9,7 @@
 		blok.text_color === 'light' ? 'border-primary-text-light' : 'border-primary-text';
 </script>
 
-<div use:storyblokEditable={blok}>
+<div use:storyblokEditable={blok} class="section-title">
 	<h2
 		class="text-4xl font-semibold tracking-tight text-balance uppercase lg:text-[128px] {textClass}"
 	>

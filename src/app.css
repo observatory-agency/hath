@@ -31,6 +31,13 @@ h6 {
     --color-bg-dark: #1D201F;
 }
 
+/* Override @tailwindcss/forms default focus styles */
+input[type='email']:focus {
+	--tw-ring-color: #3B413C !important;
+	border-color: #3B413C !important;
+	outline-color: #3B413C !important;
+}
+
 /* Ensure Snipcart elements always appear on top */
 #snipcart,
 #snipcart-overlay,
@@ -39,4 +46,16 @@ h6 {
 .snipcart-cart-header,
 .snipcart-modal-backdrop {
 	z-index: 999999 !important;
+}
+
+.snipcart-button-primary,
+.snipcart-button-secondary {
+    @apply px-10 w-full py-4 text-2xl leading-none uppercase transition-colors duration-300 cursor-pointer rounded-xs bg-primary-color font-header text-primary-text-light hover:bg-bg-dark hover:text-primary-text-light;
+}
+
+@media (max-width: 1024px) {
+	#contact .section-title {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
 }

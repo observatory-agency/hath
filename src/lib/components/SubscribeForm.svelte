@@ -11,7 +11,7 @@
 		required
 		placeholder="Enter your email"
 		autocomplete="email"
-		class="min-w-0 flex-auto rounded-md bg-white px-3.5 py-2 text-base text-primary-text/70 outline-1 -outline-offset-1 outline-primary-text/70 placeholder:text-primary-text/70 focus:outline-2 focus:-outline-offset-2 focus:outline-secondary-text-light sm:text-sm/6"
+		class="min-w-0 flex-auto rounded-md bg-white px-3.5 py-2 text-base text-primary-text/80 outline-1 -outline-offset-1 outline-primary-color placeholder:text-primary-text/80 focus:outline-2 focus:-outline-offset-2 focus:outline-primary-color sm:text-sm/6"
 	/>
 	<ButtonGhost text="Subscribe" type="submit" />
 </form>

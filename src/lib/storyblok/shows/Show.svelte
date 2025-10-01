@@ -1,5 +1,5 @@
 <script>
-	import { storyblokEditable } from '@storyblok/svelte';
+	import { storyblokEditable, renderRichText } from '@storyblok/svelte';
 	import { fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import GhostButton from '$lib/components/ui/ButtonGhost.svelte';
@@ -66,7 +66,7 @@
 			<p class="text-2xl text-balance text-primary-text-light uppercase lg:text-4xl">
 				{blok.title}
 			</p>
-			<div class="flex flex-col gap-2">
+			<div class="flex flex-col gap-4">
 				<p class="text-3xl font-light text-primary-text-light">{formatDate(blok.date)}</p>
 				<a
 					href={blok.location_link.cached_url}
@@ -74,7 +74,11 @@
 					rel="noopener noreferrer"
 					target="_blank">{blok.location_text}</a
 				>
-				<p class="mt-4 text-2xl text-balance text-secondary-text-light">{blok.description}</p>
+				<div
+					class="prose prose-p:my-2.5 prose-p:text-2xl prose-p:text-pretty prose-p:text-secondary-text-light"
+				>
+					{@html renderRichText(blok.description)}
+				</div>
 			</div>
 			<div>
 				<GhostButton text="Buy Tickets" href={blok.tickets_link.cached_url} />
