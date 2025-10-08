@@ -148,7 +148,7 @@
 						/>
 					</svg>
 					<span
-						class="font-medium uppercase transition-colors duration-300"
+						class="hidden font-medium uppercase transition-colors duration-300 md:inline-block"
 						class:text-white={!isScrolled}
 						class:text-gray-900={isScrolled}
 					>
@@ -194,7 +194,7 @@
 						class:text-white={!isScrolled}
 						class:text-gray-900={isScrolled}
 					>
-						<span class="hidden uppercase sm:inline-block">bag</span>
+						<span class="hidden uppercase md:inline-block">bag</span>
 						<span
 							class="text-tertiaryColor snipcart-items-count ml-2 text-sm font-medium group-hover:text-gray-800"
 						></span>
@@ -291,7 +291,7 @@
 					<div class="mt-8 space-y-4 border-t border-gray-200 pt-6">
 						<button
 							type="button"
-							class="snipcart-customer-signin flex w-full cursor-pointer items-center space-x-3 rounded-lg px-3 py-3 transition-colors duration-200 hover:bg-gray-50"
+							class="snipcart-customer-signin flex w-full cursor-pointer items-center space-x-3 rounded-lg py-3 pr-3 transition-colors duration-200 hover:bg-gray-50"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

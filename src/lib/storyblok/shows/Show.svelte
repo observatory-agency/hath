@@ -81,7 +81,13 @@
 				</div>
 			</div>
 			<div>
-				<GhostButton text="Buy Tickets" href={blok.tickets_link.cached_url} />
+				{#if blok.tickets_link?.cached_url}
+					<GhostButton text="Buy Tickets" href={blok.tickets_link.cached_url} />
+				{:else}
+					<span class="text-2xl font-light text-primary-text-light"
+						>Tickets available at the door</span
+					>
+				{/if}
 			</div>
 		</div>
 	</div>
