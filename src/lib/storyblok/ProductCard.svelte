@@ -106,6 +106,8 @@
 	$: currentImage = images[currentImageIndex]?.filename || '';
 	// Calculate slide offset based on direction
 	$: slideOffset = currentImageIndex > previousIndex ? 250 : -250;
+	// Get the primary image for Snipcart (first image in array)
+	$: primaryImage = images[0]?.filename || '';
 </script>
 
 <div class="flex h-full flex-col gap-4" use:storyblokEditable={blok}>
@@ -194,7 +196,7 @@
 		data-item-name={blok.title}
 		data-item-price={blok.price}
 		data-item-description={blok.description}
-		data-item-image={blok.image.filename}
+		data-item-image={primaryImage}
 		data-item-weight={blok.productWeight}
 		data-item-url="/"
 		data-item-custom1-name="Size"
