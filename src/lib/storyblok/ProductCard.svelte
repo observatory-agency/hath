@@ -8,7 +8,9 @@
 	$: productId = blok._uid;
 
 	// Debug: verify unique product IDs (remove after verification)
-	$: console.log(`[ProductCard] "${blok.title}" → ID: ${productId}`);
+	$: console.log(
+		`[ProductCard] "${blok.title}" → ID: ${productId}${blok.guid ? ` → GUID: ${blok.guid}` : ''}`
+	);
 
 	// Card carousel state
 	let currentImageIndex = 0;
@@ -201,6 +203,7 @@
 		data-item-image={primaryImage}
 		data-item-weight={blok.productWeight}
 		data-item-url="/"
+		{...blok.guid ? { 'data-item-file-guid': blok.guid } : {}}
 		{...blok.product_type === 'clothing'
 			? {
 					'data-item-custom1-name': 'Size',
