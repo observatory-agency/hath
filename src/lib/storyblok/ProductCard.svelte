@@ -1,12 +1,14 @@
 <script>
 	import { storyblokEditable } from '@storyblok/svelte';
-	import { v4 as uuidv4 } from 'uuid';
 	import { fly, fade } from 'svelte/transition';
 
 	export let blok;
 
-	// Generate a random UUID for the product
-	const productId = uuidv4();
+	// Use Storyblok's stable block UID for Snipcart product ID
+	$: productId = blok._uid;
+
+	// Debug: verify unique product IDs (remove after verification)
+	$: console.log(`[ProductCard] "${blok.title}" → ID: ${productId}`);
 
 	// Card carousel state
 	let currentImageIndex = 0;
@@ -199,8 +201,12 @@
 		data-item-image={primaryImage}
 		data-item-weight={blok.productWeight}
 		data-item-url="/"
-		data-item-custom1-name="Size"
-		data-item-custom1-options="Small | Medium | Large | XL | XXL | XXXL"
+		{...blok.product_type === 'clothing'
+			? {
+					'data-item-custom1-name': 'Size',
+					'data-item-custom1-options': 'Small | Medium | Large | XL | XXL | XXXL'
+				}
+			: {}}
 	>
 		Add to bag
 	</button>

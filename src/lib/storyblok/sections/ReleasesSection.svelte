@@ -7,6 +7,7 @@
 	let { blok } = $props();
 
 	let sectionElement;
+	let releasesWrapper;
 	let horizontalContainer;
 	let releasesGrid;
 	let isDesktop = $state(false);
@@ -36,11 +37,11 @@
 					ease: 'none'
 				});
 
-				// Create ScrollTrigger that pins the section and drives the horizontal scroll
+				// Pin the releases wrapper (not the whole section) so the MUSIC intro scrolls away first
 				ScrollTrigger.create({
-					trigger: sectionElement,
-					start: 'top+=200px top',
-					end: () => `+=${scrollDistance * 3}`, // Make scroll feel more natural
+					trigger: releasesWrapper,
+					start: 'top top',
+					end: () => `+=${scrollDistance * 3}`,
 					pin: true,
 					scrub: 1,
 					animation: horizontalTween,
@@ -85,18 +86,15 @@
 	bind:this={sectionElement}
 	use:storyblokEditable={blok}
 >
-	<div class="h-full">
-		<div class="mx-auto flex max-w-3xl flex-col gap-8 px-4 text-center lg:px-0">
-			<h1 class="text-3xl font-semibold text-balance text-primary-text-light uppercase lg:text-6xl">
-				{blok.header}
-			</h1>
-			<div class="prose text-balance prose-p:text-lg prose-p:text-secondary-text-light">
-				{@html renderRichText(blok.copy)}
-			</div>
-		</div>
+	<div class="container mx-auto px-4 lg:px-0">
+		{#each blok.intro as blok}
+			<StoryblokComponent {blok} />
+		{/each}
+	</div>
 
+	<div class="releases-wrapper" bind:this={releasesWrapper}>
 		<!-- Releases Container - responsive layout -->
-		<div class="releases-container my-24" bind:this={horizontalContainer}>
+		<div class="releases-container" bind:this={horizontalContainer}>
 			<div
 				class="releases-grid"
 				class:desktop-horizontal={isDesktop}
@@ -120,35 +118,54 @@
 		background-size: cover, cover;
 		background-position: center, center;
 		background-repeat: no-repeat, no-repeat;
+		background-attachment: fixed, fixed;
+	}
+
+	.releases-wrapper {
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+		padding: 3rem 0;
 	}
 
 	.releases-container {
 		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
 	}
 
 	/* Desktop horizontal scroll layout */
 	.releases-container:has(.desktop-horizontal) {
-		height: 75vh;
 		overflow: hidden;
-		display: flex;
-		align-items: center;
 	}
 
 	.releases-grid.desktop-horizontal {
 		display: flex;
-		gap: 8rem;
-		height: 100%;
+		gap: clamp(4rem, 10vw, 12rem);
 		align-items: center;
 		will-change: transform;
+		height: 100%;
 	}
 
 	.release-item.desktop-item {
-		flex: 0 0 800px;
-		height: 100%;
+		/* Card width scales with viewport height (album art is square) */
+		/* Leave 280px for title/button + padding, card width = image height */
+		flex: 0 0 calc(100vh - 280px);
+		max-width: 800px;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		padding: 1rem;
+		padding: 0 1rem;
+	}
+
+	/* Album cover - square, scales with viewport */
+	.release-item.desktop-item :global(img) {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		object-position: center;
 	}
 
 	/* Mobile/tablet grid layout */
@@ -156,6 +173,13 @@
 		max-width: 1200px;
 		margin: 3rem auto 0;
 		padding: 0 1rem;
+		height: auto;
+	}
+
+	.releases-wrapper:has(.mobile-grid) {
+		height: auto;
+		min-height: auto;
+		overflow: visible;
 	}
 
 	.releases-grid.mobile-grid {
@@ -170,6 +194,12 @@
 		display: flex;
 		flex-direction: column;
 		padding: 0;
+	}
+
+	.release-item.mobile-item :global(img) {
+		max-height: none;
+		max-width: 100%;
+		width: 100%;
 	}
 
 	/* Mobile responsive adjustments */
