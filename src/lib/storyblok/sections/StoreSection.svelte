@@ -21,18 +21,18 @@
 			</p>
 			<div class="mt-6 flex flex-col items-center gap-16 px-12 lg:flex-row lg:px-0">
 				<a
-					href="https://www.willowtip.com/bands/details/hath.aspx"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					<img src={WillowtipLogo} alt="Willowtip" />
-				</a>
-				<a
 					href="https://massacremerch.com/collections/hath"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
 					<img src={MassacreLogo} alt="Massacre" />
+				</a>
+				<a
+					href="https://www.willowtip.com/bands/details/hath.aspx"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<img src={WillowtipLogo} alt="Willowtip" />
 				</a>
 			</div>
 		</div>

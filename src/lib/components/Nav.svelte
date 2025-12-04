@@ -41,7 +41,7 @@
 </script>
 
 <header
-	class="fixed right-0 left-0 z-10 transition-all duration-300"
+	class="nav-boi fixed right-0 left-0 z-10 transition-all duration-300"
 	class:pt-[96px]={$hasBanner && !isScrolled}
 	class:bg-white={isScrolled}
 	class:shadow-lg={isScrolled}
@@ -60,13 +60,13 @@
 					href="#releases"
 					class="font-header text-lg font-semibold uppercase transition-colors duration-300"
 					class:text-white={!isScrolled}
-					class:text-gray-900={isScrolled}>Releases</a
+					class:text-gray-900={isScrolled}>Music</a
 				>
 				<a
 					href="#store"
 					class="font-header text-lg font-semibold uppercase transition-colors duration-300"
 					class:text-white={!isScrolled}
-					class:text-gray-900={isScrolled}>Store</a
+					class:text-gray-900={isScrolled}>Merch</a
 				>
 				<a
 					href="#shows"
@@ -262,14 +262,14 @@
 							on:click={closeMobileMenu}
 							class="block rounded-lg px-3 py-3 font-header text-lg font-semibold text-gray-900 uppercase transition-colors duration-200 hover:bg-gray-50"
 						>
-							Releases
+							Music
 						</a>
 						<a
 							href="#store"
 							on:click={closeMobileMenu}
 							class="block rounded-lg px-3 py-3 font-header text-lg font-semibold text-gray-900 uppercase transition-colors duration-200 hover:bg-gray-50"
 						>
-							Store
+							Merch
 						</a>
 						<a
 							href="#shows"

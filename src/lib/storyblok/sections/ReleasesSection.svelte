@@ -118,7 +118,13 @@
 		background-size: cover, cover;
 		background-position: center, center;
 		background-repeat: no-repeat, no-repeat;
-		background-attachment: fixed, fixed;
+	}
+
+	/* Only fix background on desktop where scrolljack is active */
+	@media (min-width: 1024px) {
+		#releases {
+			background-attachment: fixed, fixed;
+		}
 	}
 
 	.releases-wrapper {
@@ -147,6 +153,7 @@
 		align-items: center;
 		will-change: transform;
 		height: 100%;
+		padding-right: clamp(4rem, 10vw, 12rem);
 	}
 
 	.release-item.desktop-item {
