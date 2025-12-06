@@ -1,5 +1,5 @@
 /** @type {import('./$types').PageLoad} */
-export async function load({ params, parent }) {
+export async function load({ params, parent, data }) {
 
     const { storyblokAPI } = await parent();
 
@@ -8,6 +8,7 @@ export async function load({ params, parent }) {
     });
 
     return {
+        ...data, // Include server data (inventory from +page.server.js)
         story: response.data.story,
     };
 }

@@ -131,32 +131,6 @@ export async function getProductsWithInventory(): Promise<SquareProduct[]> {
 }
 
 /**
- * Creates a lookup map by SKU for easy matching with Storyblok products
- * Use this when Storyblok products have a SKU field that matches Square
- */
-export async function getInventoryBySku(): Promise<SquareInventoryMap> {
-	const products = await getProductsWithInventory();
-	const skuMap: SquareInventoryMap = {};
-
-	for (const product of products) {
-		for (const variation of product.variations) {
-			if (variation.sku) {
-				// Group by base SKU (e.g., "TSHIRT-001" from "TSHIRT-001-S")
-				const baseSku = variation.sku.split('-').slice(0, -1).join('-') || variation.sku;
-
-				if (!skuMap[baseSku]) {
-					skuMap[baseSku] = { variations: [], totalQuantity: 0 };
-				}
-				skuMap[baseSku].variations.push(variation);
-				skuMap[baseSku].totalQuantity += variation.quantity;
-			}
-		}
-	}
-
-	return skuMap;
-}
-
-/**
  * Creates a lookup map by product name for matching with Storyblok
  * Useful when you don't have SKUs but product names match between systems
  */
@@ -175,18 +149,6 @@ export async function getInventoryByName(): Promise<SquareInventoryMap> {
 	}
 
 	return nameMap;
-}
-
-/**
- * Formats Square variations for Snipcart's custom field options
- * Returns format: "Size1|Size2|Size3"
- * Only includes sizes that are in stock
- */
-export function formatSnipcartOptions(variations: SquareVariation[]): string {
-	return variations
-		.filter((v) => v.quantity > 0)
-		.map((v) => v.name)
-		.join('|');
 }
 
 /**

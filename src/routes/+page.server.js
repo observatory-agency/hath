@@ -7,7 +7,12 @@ import {
 } from '$lib/utils/square';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load() {
+export async function load({ setHeaders }) {
+    // Cache page for 5 min, serve stale while revalidating for 10 min
+    // This balances freshness with performance
+    setHeaders({
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600'
+    });
     try {
         const products = await getProductsWithInventory();
 
