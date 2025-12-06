@@ -1,16 +1,32 @@
 <script>
 	import { storyblokEditable } from '@storyblok/svelte';
 	import { fly, fade } from 'svelte/transition';
+	import { inventory } from '$lib/stores/inventory.js';
 
 	export let blok;
 
 	// Use Storyblok's stable block UID for Snipcart product ID
 	$: productId = blok._uid;
 
-	// Debug: verify unique product IDs (remove after verification)
-	$: console.log(
-		`[ProductCard] "${blok.title}" → ID: ${productId}${blok.guid ? ` → GUID: ${blok.guid}` : ''}`
-	);
+	// Default size options (fallback if Square data not available)
+	const defaultSizes = 'Small|Medium|Large|XL|XXL|XXXL';
+
+	// Get inventory data from store (reactive) - works for any product with a square_product_name
+	$: productInventory = blok.square_product_name
+		? inventory.getProduct($inventory.products, blok.square_product_name)
+		: null;
+
+	// Compute size options from store data or use defaults
+	$: sizeOptions =
+		blok.product_type === 'clothing'
+			? productInventory?.options || ($inventory.loaded ? '' : defaultSizes)
+			: '';
+
+	$: stockMap = productInventory?.stockMap || {};
+	$: inventoryLoaded = $inventory.loaded;
+
+	// Use Square price if available, otherwise fall back to Storyblok price
+	$: price = productInventory?.price || blok.price;
 
 	// Card carousel state
 	let currentImageIndex = 0;
@@ -188,31 +204,42 @@
 	<div class="flex flex-grow flex-col gap-4">
 		<div class="flex flex-col items-center justify-between gap-4">
 			<p class="text-center font-header text-2xl font-medium text-primary-text uppercase">
-				${blok.price}
+				${price}
 			</p>
 			<p class="text-center font-header text-xl text-primary-text uppercase">{blok.title}</p>
 		</div>
 		<p class="text-center text-lg text-secondary-text">{blok.description}</p>
 	</div>
-	<button
-		class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 pt-4 pb-3 font-header text-xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
-		data-item-id={productId}
-		data-item-name={blok.title}
-		data-item-price={blok.price}
-		data-item-description={blok.description}
-		data-item-image={primaryImage}
-		data-item-weight={blok.productWeight}
-		data-item-url="/"
-		{...blok.guid ? { 'data-item-file-guid': blok.guid } : {}}
-		{...blok.product_type === 'clothing'
-			? {
-					'data-item-custom1-name': 'Size',
-					'data-item-custom1-options': 'Small | Medium | Large | XL | XXL | XXXL'
-				}
-			: {}}
-	>
-		Add to bag
-	</button>
+	{#if blok.product_type === 'clothing' && inventoryLoaded && !sizeOptions}
+		<!-- All sizes out of stock -->
+		<button
+			class="mx-auto w-fit cursor-not-allowed rounded-xs bg-gray-400 px-10 pt-4 pb-3 font-header text-xl leading-none text-gray-600 uppercase"
+			disabled
+		>
+			Sold Out
+		</button>
+	{:else}
+		<button
+			class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 pt-4 pb-3 font-header text-xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
+			data-item-id={productId}
+			data-item-name={blok.title}
+			data-item-price={price}
+			data-item-description={blok.description}
+			data-item-image={primaryImage}
+			data-item-weight={blok.productWeight}
+			data-item-url="/"
+			{...blok.guid ? { 'data-item-file-guid': blok.guid } : {}}
+			{...blok.product_type === 'clothing' && sizeOptions
+				? {
+						'data-item-custom1-name': 'Size',
+						'data-item-custom1-options': sizeOptions,
+						'data-item-custom1-required': 'true'
+					}
+				: {}}
+		>
+			Add to bag
+		</button>
+	{/if}
 </div>
 
 <!-- Lightbox overlay -->
