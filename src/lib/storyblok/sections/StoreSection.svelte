@@ -8,9 +8,11 @@
 
 	let { blok } = $props();
 
-	// Fetch all inventory once when store section mounts
+	// Fetch inventory if not already loaded from server
 	onMount(() => {
-		inventory.fetch();
+		if (!$inventory.loaded) {
+			inventory.fetch();
+		}
 	});
 </script>
 

@@ -84,6 +84,18 @@ function createInventoryStore() {
         },
 
         /**
+         * Initialize store with server-side data (for SSR)
+         * @param {{ loaded: boolean, loading: boolean, error: string | null, products: Record<string, { options: string, stockMap: Record<string, number>, totalQuantity: number, price: number }> }} data
+         */
+        init(data) {
+            if (data && data.loaded) {
+                set(data);
+                // Mark as already fetched so we don't re-fetch
+                fetchPromise = Promise.resolve();
+            }
+        },
+
+        /**
          * Reset store (useful for testing or manual refresh)
          */
         reset() {

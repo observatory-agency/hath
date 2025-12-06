@@ -2,14 +2,20 @@
 	import { StoryblokComponent, useStoryblokBridge } from '@storyblok/svelte';
 	import { onMount } from 'svelte';
 	import Hero from '$lib/components/Hero.svelte';
+	import { inventory } from '$lib/stores/inventory.js';
+
+	let { data } = $props();
+
+	// Initialize inventory store with server-side data (for Snipcart price validation)
+	if (data.inventory) {
+		inventory.init(data.inventory);
+	}
 
 	onMount(() => {
 		useStoryblokBridge(story?.id, (newStory) => {
 			story = newStory;
 		});
 	});
-
-	let { data } = $props();
 
 	let story = $state(data.story);
 
