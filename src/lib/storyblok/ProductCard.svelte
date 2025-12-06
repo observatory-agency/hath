@@ -1,7 +1,7 @@
 <script>
 	import { storyblokEditable } from '@storyblok/svelte';
 	import { fly, fade } from 'svelte/transition';
-	import { inventory } from '$lib/stores/inventory.js';
+	import { page } from '$app/stores';
 
 	export let blok;
 
@@ -11,19 +11,23 @@
 	// Default size options (fallback if Square data not available)
 	const defaultSizes = 'Small|Medium|Large|XL|XXL|XXXL';
 
-	// Get inventory data from store (reactive) - works for any product with a square_product_name
+	// Get inventory from page data (loaded server-side in +page.server.js)
+	$: inventoryData = $page.data?.inventory;
+	$: inventoryProducts = inventoryData?.products || {};
+	$: inventoryLoaded = inventoryData?.loaded || false;
+
+	// Get inventory data for this product by matching square_product_name
 	$: productInventory = blok.square_product_name
-		? inventory.getProduct($inventory.products, blok.square_product_name)
+		? inventoryProducts[blok.square_product_name.toLowerCase().trim()]
 		: null;
 
-	// Compute size options from store data or use defaults
+	// Compute size options from Square data or use defaults
 	$: sizeOptions =
 		blok.product_type === 'clothing'
-			? productInventory?.options || ($inventory.loaded ? '' : defaultSizes)
+			? productInventory?.options || (inventoryLoaded ? '' : defaultSizes)
 			: '';
 
 	$: stockMap = productInventory?.stockMap || {};
-	$: inventoryLoaded = $inventory.loaded;
 
 	// Use Square price if available, otherwise fall back to Storyblok price
 	$: price = productInventory?.price || blok.price;

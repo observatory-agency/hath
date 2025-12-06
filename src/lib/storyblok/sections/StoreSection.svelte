@@ -1,19 +1,10 @@
 <script>
 	import { storyblokEditable, StoryblokComponent } from '@storyblok/svelte';
-	import { onMount } from 'svelte';
-	import { inventory } from '$lib/stores/inventory.js';
 
 	import WillowtipLogo from '$lib/assets/willowtip.png';
 	import MassacreLogo from '$lib/assets/massacre.png';
 
 	let { blok } = $props();
-
-	// Fetch inventory if not already loaded from server
-	onMount(() => {
-		if (!$inventory.loaded) {
-			inventory.fetch();
-		}
-	});
 </script>
 
 <section id="store" class="py-24 lg:py-40" use:storyblokEditable={blok}>
