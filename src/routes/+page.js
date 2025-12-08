@@ -4,7 +4,7 @@ export async function load({ params, parent, data }) {
     const { storyblokAPI } = await parent();
 
     const response = await storyblokAPI.get("cdn/stories/home", {
-        version: 'draft',
+        version: 'published',
     });
 
     return {
