@@ -132,6 +132,8 @@
 	$: slideOffset = currentImageIndex > previousIndex ? 250 : -250;
 	// Get the primary image for Snipcart (first image in array)
 	$: primaryImage = images[0]?.filename || '';
+
+	console.log(blok.product_type);
 </script>
 
 <div class="flex h-full flex-col gap-4" use:storyblokEditable={blok}>
