@@ -232,6 +232,7 @@
 			data-item-image={primaryImage}
 			data-item-weight={blok.productWeight}
 			data-item-url="/"
+			data-item-categories={blok.product_type}
 			{...blok.guid ? { 'data-item-file-guid': blok.guid } : {}}
 			{...blok.product_type === 'clothing' && sizeOptions
 				? {
