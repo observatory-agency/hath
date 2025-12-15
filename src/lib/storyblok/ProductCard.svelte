@@ -136,118 +136,129 @@
 	console.log(blok.product_type);
 </script>
 
-<div class="flex h-full flex-col gap-4" use:storyblokEditable={blok}>
-	<div class="group relative aspect-square w-full overflow-hidden">
-		{#key currentImageIndex}
-			<button
-				type="button"
-				on:click={openLightbox}
-				class="h-full w-full cursor-pointer"
-				in:fly|local={{ x: slideOffset, duration: 300 }}
-				out:fly|local={{ x: -slideOffset, duration: 300 }}
-			>
-				<img src={currentImage} alt={blok.title} class="h-full w-full object-cover object-center" />
-			</button>
-		{/key}
-
-		{#if images.length > 1}
-			<!-- Previous button -->
-			<button
-				type="button"
-				on:click={previousImage}
-				class="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-black/70"
-				aria-label="Previous image"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
+{#if blok.product_type !== 'clothing'}
+	<div class="flex h-full flex-col gap-4" use:storyblokEditable={blok}>
+		<div class="group relative aspect-square w-full overflow-hidden">
+			{#key currentImageIndex}
+				<button
+					type="button"
+					on:click={openLightbox}
+					class="h-full w-full cursor-pointer"
+					in:fly|local={{ x: slideOffset, duration: 300 }}
+					out:fly|local={{ x: -slideOffset, duration: 300 }}
 				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M15 19l-7-7 7-7"
+					<img
+						src={currentImage}
+						alt={blok.title}
+						class="h-full w-full object-cover object-center"
 					/>
-				</svg>
-			</button>
+				</button>
+			{/key}
 
-			<!-- Next button -->
-			<button
-				type="button"
-				on:click={nextImage}
-				class="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-black/70"
-				aria-label="Next image"
-			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
+			{#if images.length > 1}
+				<!-- Previous button -->
+				<button
+					type="button"
+					on:click={previousImage}
+					class="absolute top-1/2 left-2 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-black/70"
+					aria-label="Previous image"
 				>
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-				</svg>
-			</button>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M15 19l-7-7 7-7"
+						/>
+					</svg>
+				</button>
 
-			<!-- Image indicators -->
-			<div class="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-2">
-				{#each images as _, index}
-					<button
-						type="button"
-						on:click={() => goToImage(index)}
-						class="h-2 w-2 rounded-full transition-all duration-300 {index === currentImageIndex
-							? 'w-6 bg-white'
-							: 'bg-white/50'}"
-						aria-label={`Go to image ${index + 1}`}
-					></button>
-				{/each}
+				<!-- Next button -->
+				<button
+					type="button"
+					on:click={nextImage}
+					class="absolute top-1/2 right-2 -translate-y-1/2 cursor-pointer rounded-full bg-black/50 p-2 text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 hover:bg-black/70"
+					aria-label="Next image"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M9 5l7 7-7 7"
+						/>
+					</svg>
+				</button>
+
+				<!-- Image indicators -->
+				<div class="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-2">
+					{#each images as _, index}
+						<button
+							type="button"
+							on:click={() => goToImage(index)}
+							class="h-2 w-2 rounded-full transition-all duration-300 {index === currentImageIndex
+								? 'w-6 bg-white'
+								: 'bg-white/50'}"
+							aria-label={`Go to image ${index + 1}`}
+						></button>
+					{/each}
+				</div>
+			{/if}
+		</div>
+		<div class="flex flex-grow flex-col gap-4">
+			<div class="flex flex-col items-center justify-between gap-4">
+				<p class="text-center font-header text-2xl font-medium text-primary-text uppercase">
+					${price}
+				</p>
+				<p class="text-center font-header text-xl text-primary-text uppercase">{blok.title}</p>
 			</div>
+			<p class="text-center text-lg text-secondary-text">{blok.description}</p>
+		</div>
+		{#if blok.product_type === 'clothing' && inventoryLoaded && !sizeOptions}
+			<!-- All sizes out of stock -->
+			<button
+				class="mx-auto w-fit cursor-not-allowed rounded-xs bg-gray-400 px-10 pt-4 pb-3 font-header text-xl leading-none text-gray-600 uppercase"
+				disabled
+			>
+				Sold Out
+			</button>
+		{:else}
+			<button
+				class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 pt-4 pb-3 font-header text-xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
+				data-item-id={productId}
+				data-item-name={blok.title}
+				data-item-price={price}
+				data-item-description={blok.description}
+				data-item-image={primaryImage}
+				data-item-weight={blok.productWeight}
+				data-item-url="/"
+				data-item-categories={blok.product_type}
+				{...blok.guid ? { 'data-item-file-guid': blok.guid } : {}}
+				{...blok.product_type === 'clothing' && sizeOptions
+					? {
+							'data-item-custom1-name': 'Size',
+							'data-item-custom1-options': sizeOptions,
+							'data-item-custom1-required': 'true'
+						}
+					: {}}
+			>
+				Add to bag
+			</button>
 		{/if}
 	</div>
-	<div class="flex flex-grow flex-col gap-4">
-		<div class="flex flex-col items-center justify-between gap-4">
-			<p class="text-center font-header text-2xl font-medium text-primary-text uppercase">
-				${price}
-			</p>
-			<p class="text-center font-header text-xl text-primary-text uppercase">{blok.title}</p>
-		</div>
-		<p class="text-center text-lg text-secondary-text">{blok.description}</p>
-	</div>
-	{#if blok.product_type === 'clothing' && inventoryLoaded && !sizeOptions}
-		<!-- All sizes out of stock -->
-		<button
-			class="mx-auto w-fit cursor-not-allowed rounded-xs bg-gray-400 px-10 pt-4 pb-3 font-header text-xl leading-none text-gray-600 uppercase"
-			disabled
-		>
-			Sold Out
-		</button>
-	{:else}
-		<button
-			class="snipcart-add-item mx-auto w-fit cursor-pointer rounded-xs bg-primary-color px-10 pt-4 pb-3 font-header text-xl leading-none text-primary-text-light uppercase transition-colors duration-300 hover:bg-bg-dark"
-			data-item-id={productId}
-			data-item-name={blok.title}
-			data-item-price={price}
-			data-item-description={blok.description}
-			data-item-image={primaryImage}
-			data-item-weight={blok.productWeight}
-			data-item-url="/"
-			data-item-categories={blok.product_type}
-			{...blok.guid ? { 'data-item-file-guid': blok.guid } : {}}
-			{...blok.product_type === 'clothing' && sizeOptions
-				? {
-						'data-item-custom1-name': 'Size',
-						'data-item-custom1-options': sizeOptions,
-						'data-item-custom1-required': 'true'
-					}
-				: {}}
-		>
-			Add to bag
-		</button>
-	{/if}
-</div>
+{/if}
 
 <!-- Lightbox overlay -->
 {#if showLightbox}

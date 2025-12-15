@@ -19,7 +19,16 @@
 			window.SnipcartSettings = {
 				publicApiKey: 'YWQwMTk5ZWYtYmYyZC00MmYwLTgwMzMtNjRkMGJjNmM0MzE0NjM4OTM1NDQzNTAzMTMwNTIw',
 				loadStrategy: 'on-user-interaction',
-				modalStyle: 'side'
+				modalStyle: 'side',
+				customFields: [
+					{
+						name: 'Order Notes',
+						id: 'order-notes',
+						type: 'textarea',
+						placeholder: 'Add any special instructions for your order here...',
+						required: true
+					}
+				]
 			};
 
 			(function () {

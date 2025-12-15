@@ -9,7 +9,13 @@
 		{#each blok.intro as blok}
 			<StoryblokComponent {blok} />
 		{/each}
-		<StoryblokComponent blok={{ shows: blok.shows, component: 'shows' }} />
+		{#if blok.shows && blok.shows.length > 0}
+			<StoryblokComponent blok={{ shows: blok.shows, component: 'shows' }} />
+		{:else}
+			<p class="mt-12 text-center text-3xl text-primary-text-light italic lg:mt-24">
+				No shows scheduled right now. We're working on riffs. 💪
+			</p>
+		{/if}
 	</div>
 </section>
 
