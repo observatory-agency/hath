@@ -9,7 +9,7 @@
 	{href}
 	{target}
 	{rel}
-	class="px-8 pt-2 pb-1 text-lg uppercase bg-transparent rounded-sm border transition-colors duration-300 cursor-pointer border-primary-text-light font-header text-primary-text-light hover:bg-primary-text-light hover:text-primary-text"
+	class="cursor-pointer rounded-sm border border-primary-text-light bg-transparent px-8 pt-4 pb-3 font-header text-lg text-primary-text-light uppercase transition-colors duration-300 hover:bg-primary-text-light hover:text-primary-text focus:outline-2 focus:-outline-offset-2 focus:outline-primary-color disabled:cursor-not-allowed disabled:opacity-50"
 >
 	{text}
 </a>

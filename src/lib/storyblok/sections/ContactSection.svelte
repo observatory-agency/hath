@@ -37,7 +37,7 @@
 			<StoryblokComponent {blok} />
 		{/each}
 		<div class="mt-12 lg:mt-20">
-			<img src={blok.image.filename} alt="Contact" class="w-full" />
+			<img src={blok.image.filename} alt="Contact" class="w-full" loading="lazy" />
 			<div class="contact-bg px-4 py-8 lg:px-12 lg:py-14">
 				<div class="flex flex-col justify-between gap-8 lg:flex-row">
 					<div class="order-2 flex max-w-2xl flex-col gap-6 lg:order-1">

@@ -133,7 +133,6 @@
 	// Get the primary image for Snipcart (first image in array)
 	$: primaryImage = images[0]?.filename || '';
 
-	console.log(blok.product_type);
 </script>
 
 {#if blok.product_type !== 'clothing'}

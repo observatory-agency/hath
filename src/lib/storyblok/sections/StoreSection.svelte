@@ -25,14 +25,14 @@
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img src={MassacreLogo} alt="Massacre" />
+					<img src={MassacreLogo} alt="Massacre" loading="lazy" />
 				</a>
 				<a
 					href="https://www.willowtip.com/bands/details/hath.aspx"
 					target="_blank"
 					rel="noopener noreferrer"
 				>
-					<img src={WillowtipLogo} alt="Willowtip" />
+					<img src={WillowtipLogo} alt="Willowtip" loading="lazy" />
 				</a>
 			</div>
 		</div>

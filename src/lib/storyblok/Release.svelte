@@ -7,7 +7,7 @@
 
 <div use:storyblokEditable={blok}>
 	<div class="flex flex-col gap-4">
-		<img src={blok.cover.filename} alt={blok.title || 'Release'} class="w-full object-cover" />
+		<img src={blok.cover.filename} alt={blok.title || 'Release'} class="w-full object-cover" loading="lazy" />
 		<div
 			class="mt-4 flex w-full flex-col items-start justify-between gap-4 lg:flex-row lg:items-center lg:gap-0"
 		>

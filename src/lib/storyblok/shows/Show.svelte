@@ -2,7 +2,7 @@
 	import { storyblokEditable, renderRichText } from '@storyblok/svelte';
 	import { fade } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
-	import GhostButton from '$lib/components/ui/ButtonGhost.svelte';
+	import GhostButtonLink from '$lib/components/ui/ButtonGhostLink.svelte';
 
 	export let blok;
 
@@ -80,9 +80,14 @@
 					{@html renderRichText(blok.description)}
 				</div>
 			</div>
-			<div>
+			<div class="mt-2">
 				{#if blok.tickets_link?.cached_url}
-					<GhostButton text="Buy Tickets" href={blok.tickets_link.cached_url} />
+					<GhostButtonLink
+						text="Buy Tickets"
+						href={blok.tickets_link.cached_url}
+						target="_blank"
+						rel="noopener noreferrer"
+					/>
 				{:else}
 					<span class="text-2xl font-light text-primary-text-light"
 						>Tickets available at the door</span
